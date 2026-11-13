@@ -1,10 +1,12 @@
 #include <stdio.h>
 #include "encode.h"
+#include "decode.h"
 #include "types.h"
 
 int main(int argc,char *argv[])
 {
     EncodeInfo encInfo;
+    DecodeInfo decInfo;
 
     if(argc<3)
     {
@@ -25,7 +27,7 @@ int main(int argc,char *argv[])
 
         if(read_and_validate_encode_args(argv,&encInfo)==e_failure)
         {
-            printf("Check arguments given in command line\n");
+            printf("Error, check arguments given in command line\n");
             return 0;
         }  
 
@@ -38,7 +40,19 @@ int main(int argc,char *argv[])
     }
     else if(check==e_decode)
     {
+        if(read_and_validate_decode_args(argv,&decInfo)==e_failure)
+        {
+            printf("Error, check arguments given in command line\n");
+            return 0;
+        }  
 
+        if(do_decoding(&decInfo)==e_failure)
+        {
+            printf("Error, decoding failed\n");
+            return 0;
+        }
+
+        
     }
 
     
